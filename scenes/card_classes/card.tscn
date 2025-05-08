@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3khxr4w6slt8"]
+
+[ext_resource type="Script" path="res://scripts/card_classes/card.gd" id="1_xqakh"]
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="2_vcq1d"]
+
+[sub_resource type="Resource" id="Resource_fg863"]
+script = ExtResource("2_vcq1d")
+card_name = ""
+description = ""
+cost = 0
+corruption = 0.0
+card_type = ""
+rarity = ""
+outer_border_image_path = ""
+inner_border_image_path = ""
+background_image_path = ""
+text_background_image_path = ""
+effect_id = ""
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_xqakh")
+data = SubResource("Resource_fg863")
+
+[node name="outer_border" type="Sprite2D" parent="."]
+
+[node name="inner_border" type="Sprite2D" parent="."]
+
+[node name="background" type="Sprite2D" parent="."]
+
+[node name="text_background" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="card_name" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="description" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="corruption" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="cost" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
