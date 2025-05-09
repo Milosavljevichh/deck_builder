@@ -90,6 +90,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="draggable_zone" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="draggable_zone"]
 position = Vector2(76.5, 103)

@@ -4,6 +4,7 @@ extends Node
 @onready var health_label = $health/health_label
 @onready var all_cards = card_database.all_cards
 @onready var handBox = $hand/HBoxContainer
+@onready var hand = $hand
 
 @onready var card_scene = preload("res://scenes/card_classes/card.tscn")
 
@@ -16,6 +17,9 @@ var selected_card: Control:
 	get:
 		return selected_card
 	set(value):
+		if value:
+			value.get_parent().remove_child(value)
+			hand.add_child(value)
 		selected_card = value
 
 var health: int:

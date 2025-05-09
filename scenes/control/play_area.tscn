@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnhmr7ryffott"]
+
+[ext_resource type="Script" path="res://scripts/controls/play_area.gd" id="1_qk656"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3j2f"]
+size = Vector2(610, 236)
+
+[node name="PlayArea" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_qk656")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_s3j2f")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

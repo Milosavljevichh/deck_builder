@@ -41,5 +41,4 @@ func _on_draggable_zone_mouse_entered():
 	hovered_over = true
 #control letting go of a card
 func _on_draggable_zone_mouse_exited():
-	if !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		hovered_over = false
+	hovered_over = false

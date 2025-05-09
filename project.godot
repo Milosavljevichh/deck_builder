@@ -22,6 +22,11 @@ card_database="*res://scripts/card_database.gd"
 
 player=""
 
+[layer_names]
+
+2d_physics/layer_1="cards"
+2d_physics/layer_2="play area"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
