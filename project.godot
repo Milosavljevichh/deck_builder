@@ -18,6 +18,10 @@ config/icon="res://icon.svg"
 
 card_database="*res://scripts/card_database.gd"
 
+[global_group]
+
+player=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

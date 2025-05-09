@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_q8um6"]
 [ext_resource type="PackedScene" uid="uid://oytf8i72nwlc" path="res://scenes/player/deck.tscn" id="2_4q0s8"]
 
-[node name="Player" type="Node" groups=["player"]]
+[node name="Player" type="Node"]
 script = ExtResource("1_q8um6")
 
 [node name="health" type="Sprite2D" parent="."]

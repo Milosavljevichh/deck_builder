@@ -12,6 +12,11 @@ extends Node
 var discard_pile := []
 var current_deck
 var hand_array := []
+var selected_card: Control:
+	get:
+		return selected_card
+	set(value):
+		selected_card = value
 
 var health: int:
 	get:
@@ -21,6 +26,7 @@ var health: int:
 
 func _ready():
 	health = starting_health
+	selected_card = null
 #	function for shuffling deck
 	current_deck = deck.card_inventory
 	draw_cards(5)
