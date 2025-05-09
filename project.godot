@@ -14,6 +14,10 @@ config/name="deck_builder"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+card_database="*res://scripts/card_database.gd"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

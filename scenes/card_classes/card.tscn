@@ -1,50 +1,99 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3khxr4w6slt8"]
+[gd_scene load_steps=7 format=3 uid="uid://b3khxr4w6slt8"]
 
 [ext_resource type="Script" path="res://scripts/card_classes/card.gd" id="1_xqakh"]
-[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="2_vcq1d"]
+[ext_resource type="Texture2D" uid="uid://cpa8fjhsagqop" path="res://assets/outer.png" id="2_meurv"]
+[ext_resource type="Texture2D" uid="uid://b1un2m7k231d6" path="res://assets/inner.png" id="3_4ls7s"]
+[ext_resource type="Texture2D" uid="uid://5lu35hdidwlj" path="res://assets/bg.png" id="4_uxajl"]
+[ext_resource type="Texture2D" uid="uid://dwls2t2e8gt4n" path="res://assets/text.png" id="5_3y4me"]
 
-[sub_resource type="Resource" id="Resource_fg863"]
-script = ExtResource("2_vcq1d")
-card_name = ""
-description = ""
-cost = 0
-corruption = 0.0
-card_type = ""
-rarity = ""
-outer_border_image_path = ""
-inner_border_image_path = ""
-background_image_path = ""
-text_background_image_path = ""
-effect_id = ""
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgr8g"]
+size = Vector2(155, 208)
 
-[node name="Card" type="Node2D"]
+[node name="Card" type="Control"]
+custom_minimum_size = Vector2(152, 205)
+layout_mode = 3
+anchor_right = 0.132
+anchor_bottom = 0.316
+offset_right = -0.0639954
+offset_bottom = 0.231995
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(76, 105)
+mouse_filter = 2
 script = ExtResource("1_xqakh")
-data = SubResource("Resource_fg863")
 
-[node name="outer_border" type="Sprite2D" parent="."]
+[node name="outer_border" type="TextureRect" parent="."]
+z_index = 5
+layout_mode = 1
+offset_right = 76.0
+offset_bottom = 103.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+texture = ExtResource("2_meurv")
+expand_mode = 3
 
-[node name="inner_border" type="Sprite2D" parent="."]
+[node name="background" type="TextureRect" parent="outer_border"]
+z_index = 1
+layout_mode = 1
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 72.0
+offset_bottom = 99.0
+mouse_filter = 2
+texture = ExtResource("4_uxajl")
+expand_mode = 3
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="inner_border" type="TextureRect" parent="outer_border/background"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 66.0
+offset_bottom = 93.0
+mouse_filter = 2
+texture = ExtResource("3_4ls7s")
 
-[node name="text_background" type="Sprite2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="text_background" type="TextureRect" parent="outer_border/background/inner_border"]
+layout_mode = 0
+offset_top = 42.5
+offset_right = 64.0
+offset_bottom = 52.5
+mouse_filter = 2
+texture = ExtResource("5_3y4me")
 
 [node name="card_name" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 0
+offset_left = 15.0
+offset_top = 97.0
+offset_right = 132.0
+offset_bottom = 119.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
 
 [node name="description" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 0
+offset_left = 24.0
+offset_top = 133.0
+offset_right = 127.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 3
 
 [node name="corruption" type="Label" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="cost" type="Label" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="draggable_zone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="draggable_zone"]
+position = Vector2(76.5, 103)
+shape = SubResource("RectangleShape2D_hgr8g")
+
+[connection signal="mouse_entered" from="draggable_zone" to="." method="_on_draggable_zone_mouse_entered"]
+[connection signal="mouse_exited" from="draggable_zone" to="." method="_on_draggable_zone_mouse_exited"]

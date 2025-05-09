@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://3siy5yct6271"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_q8um6"]
+[ext_resource type="PackedScene" uid="uid://oytf8i72nwlc" path="res://scenes/player/deck.tscn" id="2_4q0s8"]
+
+[node name="Player" type="Node"]
+script = ExtResource("1_q8um6")
+
+[node name="health" type="Sprite2D" parent="."]
+
+[node name="health_label" type="Label" parent="health"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="deck" parent="." instance=ExtResource("2_4q0s8")]
+
+[node name="discard_pile" type="Node2D" parent="."]
+
+[node name="hand" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 206)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="hand"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
