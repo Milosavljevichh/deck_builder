@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj4vfph8lkvrs"]
+
+[ext_resource type="Script" path="res://scripts/controls/states/player_input_state.gd" id="1_op153"]
+
+[node name="PlayerInputState" type="Node"]
+script = ExtResource("1_op153")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dknx5ie1iajef"]
+
+[ext_resource type="Script" path="res://scripts/player/ui/proceed.gd" id="1_5a8ox"]
+
+[node name="Proceed" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Next"
+script = ExtResource("1_5a8ox")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

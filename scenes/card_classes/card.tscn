@@ -1,10 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3khxr4w6slt8"]
+[gd_scene load_steps=3 format=3 uid="uid://b3khxr4w6slt8"]
 
 [ext_resource type="Script" path="res://scripts/card_classes/card.gd" id="1_xqakh"]
-[ext_resource type="Texture2D" uid="uid://cpa8fjhsagqop" path="res://assets/outer.png" id="2_meurv"]
-[ext_resource type="Texture2D" uid="uid://b1un2m7k231d6" path="res://assets/inner.png" id="3_4ls7s"]
-[ext_resource type="Texture2D" uid="uid://5lu35hdidwlj" path="res://assets/bg.png" id="4_uxajl"]
-[ext_resource type="Texture2D" uid="uid://dwls2t2e8gt4n" path="res://assets/text.png" id="5_3y4me"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hgr8g"]
 size = Vector2(155, 208)
@@ -19,20 +15,24 @@ offset_bottom = 0.231995
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(76, 105)
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_xqakh")
 
-[node name="outer_border" type="TextureRect" parent="."]
+[node name="UI" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="outer_border" type="TextureRect" parent="UI"]
 z_index = 5
 layout_mode = 1
 offset_right = 76.0
 offset_bottom = 103.0
 scale = Vector2(2, 2)
 mouse_filter = 2
-texture = ExtResource("2_meurv")
 expand_mode = 3
 
-[node name="background" type="TextureRect" parent="outer_border"]
+[node name="background" type="TextureRect" parent="UI/outer_border"]
 z_index = 1
 layout_mode = 1
 offset_left = 4.0
@@ -40,27 +40,25 @@ offset_top = 4.0
 offset_right = 72.0
 offset_bottom = 99.0
 mouse_filter = 2
-texture = ExtResource("4_uxajl")
 expand_mode = 3
 
-[node name="inner_border" type="TextureRect" parent="outer_border/background"]
+[node name="inner_border" type="TextureRect" parent="UI/outer_border/background"]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 66.0
 offset_bottom = 93.0
 mouse_filter = 2
-texture = ExtResource("3_4ls7s")
 
-[node name="text_background" type="TextureRect" parent="outer_border/background/inner_border"]
+[node name="text_background" type="TextureRect" parent="UI/outer_border/background/inner_border"]
 layout_mode = 0
 offset_top = 42.5
 offset_right = 64.0
 offset_bottom = 52.5
 mouse_filter = 2
-texture = ExtResource("5_3y4me")
 
-[node name="card_name" type="Label" parent="."]
+[node name="card_name" type="Label" parent="UI"]
+z_index = 5
 layout_mode = 0
 offset_left = 15.0
 offset_top = 97.0
@@ -69,7 +67,8 @@ offset_bottom = 119.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
 
-[node name="description" type="Label" parent="."]
+[node name="description" type="Label" parent="UI"]
+z_index = 5
 layout_mode = 0
 offset_left = 24.0
 offset_top = 133.0
@@ -79,12 +78,14 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 13
 autowrap_mode = 3
 
-[node name="corruption" type="Label" parent="."]
+[node name="corruption" type="Label" parent="UI"]
+z_index = 5
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="cost" type="Label" parent="."]
+[node name="cost" type="Label" parent="UI"]
+z_index = 5
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

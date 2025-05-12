@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://3siy5yct6271"]
+[gd_scene load_steps=9 format=3 uid="uid://3siy5yct6271"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_q8um6"]
 [ext_resource type="PackedScene" uid="uid://oytf8i72nwlc" path="res://scenes/player/deck.tscn" id="2_4q0s8"]
+[ext_resource type="PackedScene" uid="uid://dknx5ie1iajef" path="res://scenes/player/ui/proceed.tscn" id="3_chtco"]
+[ext_resource type="Script" path="res://scripts/controls/fsm.gd" id="4_bx2jb"]
+[ext_resource type="PackedScene" uid="uid://b7ulyu1y6ujlj" path="res://scenes/control/states/draw_state.tscn" id="5_pffyq"]
+[ext_resource type="PackedScene" uid="uid://cj4vfph8lkvrs" path="res://scenes/control/states/player_input_state.tscn" id="6_03gxs"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_vn7s4"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_spqy1"]
+events = [SubResource("InputEventKey_vn7s4")]
 
 [node name="Player" type="Node" groups=["player"]]
 script = ExtResource("1_q8um6")
@@ -23,6 +35,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -122.0
+offset_bottom = 84.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -34,5 +48,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 12
 alignment = 1
+
+[node name="Proceed" parent="hand" instance=ExtResource("3_chtco")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.96
+anchor_right = 0.96
+offset_left = -85.0
+offset_right = 0.0
+offset_bottom = 31.0
+grow_horizontal = 0
+shortcut = SubResource("Shortcut_spqy1")
+
+[node name="debug_label" type="Label" parent="hand"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = -450.0
+offset_right = 389.0
+offset_bottom = -427.0
+
+[node name="PlayerFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_bx2jb")
+initial_state = NodePath("DrawState")
+
+[node name="DrawState" parent="PlayerFSM" node_paths=PackedStringArray("player", "next_state") instance=ExtResource("5_pffyq")]
+player = NodePath("../..")
+next_state = NodePath("../PlayerInputState")
+
+[node name="PlayerInputState" parent="PlayerFSM" node_paths=PackedStringArray("next_state", "proceed_btn") instance=ExtResource("6_03gxs")]
+next_state = NodePath("../DrawState")
+proceed_btn = NodePath("../../hand/Proceed")

@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnhmr7ryffott"]
+[gd_scene load_steps=5 format=3 uid="uid://dnhmr7ryffott"]
 
 [ext_resource type="Script" path="res://scripts/controls/play_area.gd" id="1_qk656"]
+[ext_resource type="Texture2D" uid="uid://2lkmjkx0gxou" path="res://icon.svg" id="2_c60jb"]
+[ext_resource type="Script" path="res://scripts/controls/fsm.gd" id="3_i1vxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s3j2f"]
 size = Vector2(610, 236)
@@ -12,4 +14,13 @@ script = ExtResource("1_qk656")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_s3j2f")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 3)
+scale = Vector2(4.79688, 1.85938)
+texture = ExtResource("2_c60jb")
+
+[node name="QueueFSM" type="Node" parent="."]
+script = ExtResource("3_i1vxa")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
