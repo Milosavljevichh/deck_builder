@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://vq6ghvgg1on8"]
+
+[ext_resource type="Script" path="res://scripts/resources/card_data.gd" id="1_jwntr"]
+
+[resource]
+script = ExtResource("1_jwntr")
+card_name = "Prototype Card"
+description = "This card is a prototype"
+cost = 0
+corruption = 0.0
+card_type = "Attack"
+rarity = "Common"
+outer_border_image_path = "res://assets/outer.png"
+inner_border_image_path = ""
+background_image_path = "res://assets/bg.png"
+text_background_image_path = ""
+effect_id = ""

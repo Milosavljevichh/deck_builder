@@ -4,6 +4,8 @@ extends State
 
 @export var player : Player
 @export var next_state : State
+@export var proceed_btn : Button
+@onready var timer = $Timer
 
 func draw_cards(amount: int):
 	if player.current_deck.size() - 1 > 0:
@@ -16,8 +18,15 @@ func draw_cards(amount: int):
 		player.create_deck()
 
 func on_state_entered(args = null):
+	proceed_btn.disabled = true
 	var draw_amount = 5
 	if args is int:
 		draw_amount = args
 	draw_cards(draw_amount)
+	timer.start()
+
+func on_state_exited():
+	proceed_btn.disabled = false
+
+func _on_timer_timeout():
 	Transitioned.emit(self, next_state.name.to_lower(), null)
