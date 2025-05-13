@@ -1,6 +1,8 @@
 extends Control
 class_name Card
 
+signal Add_to_queue(card_to_add)
+
 const HOVER_OFFSET = -50.0
 
 @onready var outer_border = $UI/outer_border
@@ -42,6 +44,8 @@ func _physics_process(delta):
 		elif Input.is_action_just_released("mouse_left"):
 			draggable = false
 			player.selected_card = null
+			Add_to_queue.emit(self)
+			print(is_in_queue)
 			if is_in_queue == false:
 				player.add_card_to_hand(self)
 	else:
