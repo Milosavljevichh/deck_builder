@@ -48,6 +48,8 @@ func _physics_process(delta):
 			print(is_in_queue)
 			if is_in_queue == false:
 				player.add_card_to_hand(self)
+			else:
+				queue_free()
 	else:
 		ui.position.y = lerp(ui.position.y, 0.0, 10 * delta)
 	if draggable && player.selected_card == self:

@@ -1,25 +1,23 @@
 extends Area2D
 class_name PlayArea
 
-var is_players_turn
-var is_in_play_range
-var selected_card
+var is_players_turn : bool
+var is_in_play_range : bool
 var queue := []
 
 func _ready():
 	is_players_turn = false
 
 func _on_area_entered(card_draggable_area):
-	print('card entered play area')
-	print(card_draggable_area.get_parent())
+	var card : Card = card_draggable_area.get_parent()
 	is_in_play_range = true
-	selected_card = card_draggable_area.get_parent()
-	selected_card.Add_to_queue.connect(add_to_queue)
+	card.Add_to_queue.connect(add_to_queue)
 
-func add_to_queue(card_to_add : Card):
-	card_to_add.is_in_queue = true
+func add_to_queue(card : Card):
+	var new_card = card.duplicate()
 	if is_players_turn && is_in_play_range:
-		queue.push_front(selected_card)
+		card.is_in_queue = true
+		queue.push_front(new_card)
 
 func play_queue():
 	for card in queue:
