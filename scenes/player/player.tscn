@@ -29,48 +29,6 @@ offset_bottom = 23.0
 
 [node name="discard_pile" type="Node2D" parent="."]
 
-[node name="hand" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 206)
-layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -122.0
-offset_bottom = 84.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="hand"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Proceed" parent="hand" instance=ExtResource("3_chtco")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.96
-anchor_right = 0.96
-offset_left = -85.0
-offset_right = 0.0
-offset_bottom = 31.0
-grow_horizontal = 0
-shortcut = SubResource("Shortcut_spqy1")
-
-[node name="debug_label" type="Label" parent="hand"]
-layout_mode = 0
-offset_left = 349.0
-offset_top = -450.0
-offset_right = 389.0
-offset_bottom = -427.0
-
 [node name="PlayerFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_bx2jb")
 initial_state = NodePath("DrawState")
@@ -78,18 +36,88 @@ initial_state = NodePath("DrawState")
 [node name="DrawState" parent="PlayerFSM" node_paths=PackedStringArray("player", "next_state", "proceed_btn") instance=ExtResource("5_pffyq")]
 player = NodePath("../..")
 next_state = NodePath("../PlayerInputState")
-proceed_btn = NodePath("../../hand/Proceed")
+proceed_btn = NodePath("../../CanvasLayer/hand/Proceed")
 
 [node name="Timer" type="Timer" parent="PlayerFSM/DrawState"]
 one_shot = true
 
 [node name="PlayerInputState" parent="PlayerFSM" node_paths=PackedStringArray("next_state", "proceed_btn") instance=ExtResource("6_03gxs")]
 next_state = NodePath("../IdleState")
-proceed_btn = NodePath("../../hand/Proceed")
+proceed_btn = NodePath("../../CanvasLayer/hand/Proceed")
 
 [node name="IdleState" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("next_state", "proceed_btn")]
 script = ExtResource("7_bafc6")
 next_state = NodePath("../DrawState")
-proceed_btn = NodePath("../../hand/Proceed")
+proceed_btn = NodePath("../../CanvasLayer/hand/Proceed")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="hand" type="Control" parent="CanvasLayer"]
+custom_minimum_size = Vector2(0, 275)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -208.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Proceed" parent="CanvasLayer/hand" instance=ExtResource("3_chtco")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.96
+anchor_right = 0.96
+offset_left = -85.0
+offset_top = 120.0
+offset_right = 0.0
+offset_bottom = 151.0
+grow_horizontal = 0
+shortcut = SubResource("Shortcut_spqy1")
+
+[node name="debug_label" type="Label" parent="CanvasLayer/hand"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = -341.0
+offset_right = 389.0
+offset_bottom = -318.0
+
+[node name="wrapper" type="Control" parent="CanvasLayer/hand"]
+layout_mode = 1
+anchor_top = -0.175
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.125004
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/hand/wrapper"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_right = 205
+theme_override_constants/margin_bottom = 25
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/hand/wrapper/MarginContainer"]
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/hand/wrapper/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+mouse_filter = 2
+theme_override_constants/separation = 12
+alignment = 2
 
 [connection signal="timeout" from="PlayerFSM/DrawState/Timer" to="PlayerFSM/DrawState" method="_on_timer_timeout"]

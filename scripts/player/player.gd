@@ -4,8 +4,8 @@ class_name Player
 @onready var deck = $deck
 @onready var health_label = $health/health_label
 @onready var all_cards = card_database.all_cards
-@onready var handBox = $hand/HBoxContainer
-@onready var hand = $hand
+@onready var handBox = $CanvasLayer/hand/wrapper/MarginContainer/ScrollContainer/HBoxContainer
+@onready var hand = $CanvasLayer/hand
 
 @export var starting_health := 100
 
@@ -41,7 +41,7 @@ func create_deck():
 
 func _process(delta):
 	health_label.text = str(health)
-	$hand/debug_label.text = str($PlayerFSM.current_state.name)
+	$CanvasLayer/hand/debug_label.text = str($PlayerFSM.current_state.name)
 
 func add_card_to_hand(card: Card):
 	if card.get_parent():
