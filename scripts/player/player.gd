@@ -11,7 +11,6 @@ class_name Player
 
 var discard_pile := []
 var current_deck
-var hand_array := []
 var selected_card: Card:
 	get:
 		return selected_card
@@ -37,7 +36,7 @@ func shuffle_deck():
 	current_deck.shuffle()
 
 func create_deck():
-	current_deck = deck.card_inventory
+	current_deck = deck.card_inventory.duplicate()
 	shuffle_deck()
 
 func _process(delta):

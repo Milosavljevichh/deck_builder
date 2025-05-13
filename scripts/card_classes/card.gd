@@ -17,7 +17,6 @@ var hovered_over = false
 var draggable = false
 var is_in_queue = false
 var player
-var selected_card
 
 func set_up(data: CardData):
 #	load data
@@ -30,24 +29,24 @@ func set_up(data: CardData):
 	cost.text = str(data.cost)
 	card_name.text = str(data.card_name)
 	player = get_tree().get_first_node_in_group("player")
-	selected_card = player.selected_card
+	
 
 func _physics_process(delta):
 #	create dragging && make sure only one card is dragged
 	if hovered_over:
-		if !selected_card:
+		if !player.selected_card:
 			ui.position.y = lerp(ui.position.y, HOVER_OFFSET, 10 * delta)
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && !selected_card:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && !player.selected_card:
 			draggable = true
-			selected_card = self
+			player.selected_card = self
 		elif Input.is_action_just_released("mouse_left"):
 			draggable = false
-			selected_card = null
+			player.selected_card = null
 			if is_in_queue == false:
 				player.add_card_to_hand(self)
 	else:
 		ui.position.y = lerp(ui.position.y, 0.0, 10 * delta)
-	if draggable && selected_card == self:
+	if draggable && player.selected_card == self:
 		ui.position.y = 0
 		global_position = Vector2(get_global_mouse_position().x - custom_minimum_size.x/2, get_global_mouse_position().y - 32)
 
