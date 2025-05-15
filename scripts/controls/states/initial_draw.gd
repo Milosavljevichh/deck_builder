@@ -15,14 +15,9 @@ func draw_cards(amount: int):
 
 func on_state_entered(args = null):
 	proceed_btn.disabled = true
-	var draw_amount = 1
-	if args is int:
-		draw_amount = args
-	if player.current_deck.size() - 1 > 0:
-		draw_cards(draw_amount)
-	else:
-		player.create_deck()
-		draw_cards(draw_amount)
+	var draw_amount = 5
+	player.create_deck()
+	draw_cards(draw_amount)
 	timer.start()
 
 func on_state_exited():

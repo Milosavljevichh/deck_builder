@@ -1,11 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://clkydbj2ke51n"]
+[gd_scene load_steps=10 format=3 uid="uid://clkydbj2ke51n"]
 
+[ext_resource type="Script" path="res://scripts/controls/match.gd" id="1_ge6nt"]
 [ext_resource type="PackedScene" uid="uid://3siy5yct6271" path="res://scenes/player/player.tscn" id="1_hthiw"]
 [ext_resource type="PackedScene" uid="uid://dnhmr7ryffott" path="res://scenes/control/play_area.tscn" id="2_dhk70"]
+[ext_resource type="Script" path="res://scripts/controls/match_fsm.gd" id="4_p75x5"]
+[ext_resource type="Script" path="res://scripts/controls/states/match/match_start.gd" id="5_th6ep"]
+[ext_resource type="Script" path="res://scripts/controls/states/match/player_input.gd" id="6_hwpi3"]
+[ext_resource type="Script" path="res://scripts/controls/states/match/enemy_input.gd" id="7_d8owo"]
+[ext_resource type="Script" path="res://scripts/controls/states/match/finished_match.gd" id="8_7ymni"]
+[ext_resource type="PackedScene" uid="uid://bdj7xh660cntp" path="res://scenes/enemies/enemy.tscn" id="9_48jjj"]
 
 [node name="match" type="Node2D"]
+script = ExtResource("1_ge6nt")
 
 [node name="Player" parent="." instance=ExtResource("1_hthiw")]
 
 [node name="PlayArea" parent="." instance=ExtResource("2_dhk70")]
 position = Vector2(568, 202)
+
+[node name="MatchFsm" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_p75x5")
+initial_state = NodePath("MatchStart")
+
+[node name="MatchStart" type="Node" parent="MatchFsm" node_paths=PackedStringArray("possible_states")]
+script = ExtResource("5_th6ep")
+possible_states = [NodePath("../PlayerInput")]
+
+[node name="Timer" type="Timer" parent="MatchFsm/MatchStart"]
+wait_time = 1.5
+one_shot = true
+
+[node name="PlayerInput" type="Node" parent="MatchFsm" node_paths=PackedStringArray("possible_states")]
+script = ExtResource("6_hwpi3")
+possible_states = [NodePath("../EnemyInput"), NodePath("../FinishedMatch")]
+
+[node name="EnemyInput" type="Node" parent="MatchFsm" node_paths=PackedStringArray("possible_states")]
+script = ExtResource("7_d8owo")
+possible_states = [NodePath("../PlayerInput"), NodePath("../FinishedMatch")]
+
+[node name="FinishedMatch" type="Node" parent="MatchFsm"]
+script = ExtResource("8_7ymni")
+
+[node name="Enemy" parent="." instance=ExtResource("9_48jjj")]
+
+[node name="debug" type="Label" parent="."]
+offset_left = 823.0
+offset_top = 51.0
+offset_right = 863.0
+offset_bottom = 74.0
+
+[connection signal="FinishedTurn" from="Player" to="MatchFsm/PlayerInput" method="_on_player_finished_turn"]
+[connection signal="timeout" from="MatchFsm/MatchStart/Timer" to="MatchFsm/MatchStart" method="_on_timer_timeout"]

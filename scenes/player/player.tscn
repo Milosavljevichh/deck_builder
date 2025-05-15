@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://3siy5yct6271"]
+[gd_scene load_steps=11 format=3 uid="uid://3siy5yct6271"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_q8um6"]
 [ext_resource type="PackedScene" uid="uid://oytf8i72nwlc" path="res://scenes/player/deck.tscn" id="2_4q0s8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/controls/fsm.gd" id="4_bx2jb"]
 [ext_resource type="PackedScene" uid="uid://b7ulyu1y6ujlj" path="res://scenes/control/states/draw_state.tscn" id="5_pffyq"]
 [ext_resource type="PackedScene" uid="uid://cj4vfph8lkvrs" path="res://scenes/control/states/player_input_state.tscn" id="6_03gxs"]
+[ext_resource type="Script" path="res://scripts/controls/states/initial_draw.gd" id="7_24r1f"]
 [ext_resource type="Script" path="res://scripts/controls/states/idle_state.gd" id="7_bafc6"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_vn7s4"]
@@ -31,7 +32,7 @@ offset_bottom = 23.0
 
 [node name="PlayerFSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_bx2jb")
-initial_state = NodePath("DrawState")
+initial_state = NodePath("InitialDraw")
 
 [node name="DrawState" parent="PlayerFSM" node_paths=PackedStringArray("player", "next_state", "proceed_btn") instance=ExtResource("5_pffyq")]
 player = NodePath("../..")
@@ -49,6 +50,15 @@ proceed_btn = NodePath("../../CanvasLayer/hand/Proceed")
 script = ExtResource("7_bafc6")
 next_state = NodePath("../DrawState")
 proceed_btn = NodePath("../../CanvasLayer/hand/Proceed")
+
+[node name="InitialDraw" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "next_state", "proceed_btn")]
+script = ExtResource("7_24r1f")
+player = NodePath("../..")
+next_state = NodePath("../PlayerInputState")
+proceed_btn = NodePath("../../CanvasLayer/hand/Proceed")
+
+[node name="Timer" type="Timer" parent="PlayerFSM/InitialDraw"]
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -121,3 +131,4 @@ theme_override_constants/separation = 12
 alignment = 2
 
 [connection signal="timeout" from="PlayerFSM/DrawState/Timer" to="PlayerFSM/DrawState" method="_on_timer_timeout"]
+[connection signal="timeout" from="PlayerFSM/InitialDraw/Timer" to="PlayerFSM/InitialDraw" method="_on_timer_timeout"]

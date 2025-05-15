@@ -3,9 +3,11 @@ extends Button
 @export var to_state : State
 @export var from_state : State
 
+var player : Player
+
+func _ready():
+	player = get_parent().get_parent().get_parent()
+
 func _on_pressed():
-	if to_state.name.to_lower() == "drawstate":
-		to_state.Transitioned.emit(from_state, to_state.name.to_lower(), 1)
-	else:
-		
-		to_state.Transitioned.emit(from_state, to_state.name.to_lower())
+	to_state.Transitioned.emit(from_state, to_state.name.to_lower())
+	player.FinishedTurn.emit()

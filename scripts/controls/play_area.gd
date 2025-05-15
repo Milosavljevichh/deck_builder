@@ -1,12 +1,9 @@
 extends Area2D
 class_name PlayArea
 
-var is_players_turn : bool
+var player_turn
 var is_in_play_range : bool
 var queue := []
-
-func _ready():
-	is_players_turn = false
 
 func _on_area_entered(card_draggable_area):
 	var card : Card = card_draggable_area.get_parent()
@@ -15,7 +12,7 @@ func _on_area_entered(card_draggable_area):
 
 func add_to_queue(card : Card):
 	var new_card = card.duplicate()
-	if is_players_turn && is_in_play_range:
+	if player_turn && is_in_play_range:
 		card.is_in_queue = true
 		queue.push_front(new_card)
 

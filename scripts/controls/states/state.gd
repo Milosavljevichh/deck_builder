@@ -1,6 +1,8 @@
 extends Node
 class_name State
 
+@export var possible_states : Array[State]
+
 signal Transitioned
 
 func on_state_entered(args = null):
